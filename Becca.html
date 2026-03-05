@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Question importante</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+text-align:center;
+background:linear-gradient(135deg,#7b2cbf,#1e90ff);
+color:white;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+overflow:hidden;
+}
+
+h1{
+font-size:50px;
+}
+
+img{
+width:220px;
+border-radius:20px;
+margin-bottom:20px;
+box-shadow:0 0 20px rgba(0,0,0,0.4);
+}
+
+button{
+font-size:28px;
+padding:15px 40px;
+margin:20px;
+border:none;
+border-radius:15px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.15);
+}
+
+.yes{
+background:#ff4da6;
+color:white;
+}
+
+.no{
+background:white;
+color:#333;
+}
+
+.heart{
+position:absolute;
+color:red;
+font-size:30px;
+animation:float 5s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh)}
+100%{transform:translateY(-10vh)}
+}
+
+textarea{
+width:300px;
+height:100px;
+border-radius:10px;
+border:none;
+padding:10px;
+font-size:16px;
+}
+
+</style>
+</head>
+
+<body>
+
+<img src="photo1.jpg">
+
+<h1 id="question">Veux-tu sortir avec moi ?</h1>
+
+<div>
+<button class="yes" onclick="yes()">Oui</button>
+<button class="no" onclick="no()">Non</button>
+</div>
+
+<p>J'ai choisi ces couleurs parce que c'est ta préférée 💜💙</p>
+
+<script>
+
+let step=0;
+
+function no(){
+
+step++;
+
+if(step==1){
+question.innerHTML="Tu es sûr ?";
+}
+else if(step==2){
+question.innerHTML="Mmm pas un peu ?";
+}
+else if(step==3){
+question.innerHTML="Oooh vraiment Darling ?";
+}
+else if(step==4){
+question.innerHTML="Réfléchis encore...";
+}
+else if(step==5){
+question.innerHTML="Tu veux vraiment me dire non ?";
+}
+else{
+question.innerHTML="Comme tu n'es pas sûr... donc tu veux sortir avec moi ?";
+step=0;
+}
+
+}
+
+function yes(){
+
+document.body.innerHTML=`
+
+<h1>Je suis très heureux que tu aies dit oui ❤️</h1>
+<h2>Je savais que tu dirais oui, Darling</h2>
+
+<div style="display:flex;gap:30px;margin-top:20px;">
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+</div>
+
+<h2>Écris-moi un message d'amour 💌</h2>
+
+<textarea id="loveMessage" placeholder="Ton message..."></textarea><br><br>
+
+<button onclick="sendMessage()">Envoyer sur WhatsApp</button>
+
+<audio id="music" autoplay loop>
+<source src="music.mp3" type="audio/mp3">
+</audio>
+
+`;
+
+setInterval(createHeart,300);
+
+}
+
+function createHeart(){
+
+let heart=document.createElement("div");
+
+heart.className="heart";
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*30+20)+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},5000);
+
+}
+
+function sendMessage(){
+
+let message=document.getElementById("loveMessage").value;
+
+let phone="22893595150"; 
+
+let url="https://wa.me/"+phone+"?text="+encodeURIComponent(message);
+
+window.open(url,"_blank");
+
+}
+
+</script>
+
+</body>
+</html>
